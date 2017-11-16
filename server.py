@@ -3,6 +3,7 @@ from flask_socketio import SocketIO
 from scrapers.twitter_requests import Scrape
 import os
 import _thread
+import thread
 
 app = Flask(__name__)
 scraper = Scrape()

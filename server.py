@@ -2,7 +2,7 @@ from flask import Flask, jsonify, render_template, request, Response
 from flask_socketio import SocketIO
 from scrapers.twitter_requests import Scrape
 import os
-import thread
+import _thread
 
 app = Flask(__name__)
 scraper = Scrape()

@@ -65,5 +65,5 @@ def index_post():
 
 if __name__ == '__main__':
     print('APP STARTED!!')
-    socketio.run(app)
-    app.run(host='0.0.0.0', port='PORT')
+    #socketio.run(app)
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))

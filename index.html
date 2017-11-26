@@ -1,0 +1,146 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Banshee</title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.1.2/foundation.min.css" rel="stylesheet"/>
+	<link href='https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+    <script src="js/handlebars.js"></script>
+    <script src="js/socket.io.js"></script>
+    <script type="text/javascript" src="js/background-scripts.js"></script>
+  </head>
+  <body>
+    <div class="top-bar">
+      <div class="row">
+        <div class="top-bar-left">
+          <ul class="dropdown menu" data-dropdown-menu>
+            <li class="menu-text">Banshee</li>
+			      <li><a href="#">Documentation</a></li>
+            <li><a href="https://github.com/NWChen/banshee">Source Code</a></li>
+          </ul>
+        </div>
+        <div class="top-bar-right">
+          <ul class="dropdown menu" data-dropdown-menu>
+      			<li><a href="#">About</a></li>
+      			<li><a href="#">Settings</a></li>
+      			<li><a href="#">Login</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <br>
+	
+    <div class="row">
+      <div class="medium-6 columns">
+
+		    <h3>Query Parameters</h3>
+            <div class="row">
+                <div class="small-3 columns">
+                    <label for="middle-label" class="middle">Twitter Username</label>
+                </div>
+                <div class="small-9 columns">
+                    <input type="text" id="username" class="middle-label" placeholder="@example or example">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="small-3 columns">
+                    <label for="middle-label" class="middle">Location</label>
+                </div>
+                <div class="small-4 columns">
+                    <input type="text" id="location" class="middle-label" placeholder="New York">
+                </div>
+                <div class="small-3 columns">
+                    <label for="middle-label" class="middle">Mile Radius</label>
+                </div>
+                <div class="small-2 columns">
+                    <input type="number" id="mile_radius" class="middle-label" placeholder="15">
+                </div>
+            </div>
+      <h3>Query Keywords</h3>
+            <div class="row">
+                <div class="small-4 columns">
+                    <label for="middle-label" class="middle"><strong>Any</strong> of these words:</label>
+                </div>
+                <div class="small-8 columns">
+                    <input type="text" id="any_words" class="middle-label" placeholder="cake, pie, beets">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="small-4 columns">
+                    <label for="middle-label" class="middle"><strong>All</strong> of these words:</label>
+                </div>
+                <div class="small-8 columns">
+                    <input type="text" id="all_words" class="middle-label" placeholder="chocolate, apples, cookies">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="small-4 columns">
+                    <label for="middle-label" class="middle">This exact phrase:</label>
+                </div>
+				<div class="small-8 columns">
+					<input type="text" id="exact_phrase" class="middle-label" placeholder="the President of the United States">
+				</div>
+            </div>
+
+            <button id="search" class="button large expanded">Search</button>
+			
+			<ul class="accordion accroot" data-accordion data-allow-all-closed='true'>
+			  <li class="accordion-item" data-accordion-item>
+				<a href="#" class="accordion-title"><strong>Set up Alert for Current Query</strong></a>
+				<div class="accordion-content" data-tab-content>
+				   <h3>Additonal Parameters for Alert</h3>
+				   <div class="row">
+						<div class="small-8 columns">
+							<label for="middle-label" class="middle">When the above query returns more than </label>
+						</div>
+						<div class="small-4 columns">
+								<input type="text" class="middle-label" placeholder="5 tweets per minute">
+							</div>
+					 </div>
+					<div class="row">
+							<div class="small-6 columns">
+								<label for="middle-label" class="middle">Send an email to </label>
+							</div>
+							<div class="small-6 columns">
+								<input type="text" class="middle-label" placeholder="me@example.com">
+							</div>
+						</div>
+					<button id="search" class="success button large expanded">Create Alert</button>				  
+				</div>
+			  </li>
+			</ul>
+        </div>
+
+        <div class="medium-6 columns">
+            <h3>Results</h3>
+            <script id="data-template" type="text/x-handlebars-template">
+                {{#each tweets}}
+                    {{#each this}}
+                        <fieldset class="fieldset">
+                            <legend><strong>{{this.user}}</strong></legend>
+                                <p class="content">{{this.content}}<br><font color="grey">{{this.date}}</font></p>
+                                <a href="{{this.url}}">Tweet ID: {{this.id}}</a>
+                        </fieldset>
+                    {{/each}}
+                {{/each}}
+            </script>
+            <div class="content-placeholder"></div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.1.2/foundation.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>

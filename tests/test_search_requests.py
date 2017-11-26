@@ -1,20 +1,32 @@
 import sys
 import os
 import pprint
-sys.path.append(os.getcwd() + '/../')
+
+cwd = os.getcwd()
+sys.path.extend([cwd, cwd + '/../'])
 
 from scrapers.search_requests import Requests 
 
-
-pprint.pprint(Requests.search_user('realdonaldtrump'))
+requests = Requests()
+pprint.pprint(requests.search_user('realdonaldtrump')[0])
 print('done')
-pprint.pprint(Requests.search_location('chicago', 20))
+pprint.pprint(requests.search_location('chicago', 10)[0])
 print('done')
-pprint.pprint(Requests.search_exact_keywords(['chipotle', 'subway']))
+pprint.pprint(requests.search_exact_keywords(['chipotle', 'subway'])[0])
 print('done')
-pprint.pprint(Requests.search_partial_keywords(['chipotle', 'racism']))
+pprint.pprint(requests.search_partial_keywords(['chipotle', 'racism'])[0])
 print('done')
-pprint.pprint(Requests.search_exact_phrase('i love fridays'))
+pprint.pprint(requests.search_exact_phrase('i love fridays')[0])
 print('done')
-pprint.pprint(Requests.search_exact_keywords_by_location(['chipotle', 'subway'], 'chicago'))
+pprint.pprint(requests.search_exact_keywords_by_location(['chipotle', 'subway'], 'chicago')[0])
+print('done')
+pprint.pprint(requests.search_partial_keywords_by_location(['chipotle', 'subway'], 'chicago')[0])
+print('done')
+pprint.pprint(requests.search_exact_phrase_by_location('its so cold', 'chicago', 2)[0])
+print('done')
+pprint.pprint(requests.search_exact_keywords_by_username(['hate'], '@realdonaldtrump')[0])
+print('done')
+pprint.pprint(requests.search_partial_keywords_by_username(['hate', 'heart'], 'realdonaldtrump')[0])
+print('done')
+pprint.pprint(requests.search_exact_phrase_by_username('I love', 'realdonaldtrump')[0])
 print('done')

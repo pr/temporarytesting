@@ -38,6 +38,7 @@ const update_template = function(data, template) {
 $(document).ready(function() {
     var socket = io.connect('http://' + document.domain + ':' + location.port + '/stream');
     var template = Handlebars.compile($('#data-template').html());
+    var RESPONSE_TIMEOUT = 100;
 
     /*
      * If WebSocket connection between client and server fails, we have a problem,
@@ -57,11 +58,14 @@ $(document).ready(function() {
 
         /*
          * Handle behaviors upon receiving data from the server.
-         * This happens asynchronously, i.e. no signals for data are sent from the client to the server.
-         * TODO make this actually true via streaming data
+         * Loop this behavior by asking for more data from the server.
          */
         socket.on('data', function(data) {
+            console.log('RECEIVED DATA');
             update_template(data, template);
+            setTimeout(function() {
+                socket.emit('more'); // Ask for more data from the server.
+            }, RESPONSE_TIMEOUT);
         });
     });
 });
